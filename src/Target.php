@@ -72,6 +72,11 @@ class Target extends \yii\log\Target
     ];
 
     /**
+     * @var int text will cutted by it length to protect MESSAGE_TOO_LONG telegram error.
+     */
+    public $maxTextLength = 2000;
+
+    /**
      * @inheritDoc
      */
     public function __construct($config = [])
@@ -145,6 +150,14 @@ class Target extends \yii\log\Target
             return '';
         }, $this->template);
         return $request;
+    }
+
+    protected function cutText($text)
+    {
+        if (mb_strlen($text) > $this->maxTextLength) {
+            return mb_strcut($text, 0, $this->maxTextLength - 4) . ' ...';
+        }
+        return $text;
     }
 
     /**
@@ -226,6 +239,9 @@ class Target extends \yii\log\Target
     {
         $config = $this->substitutions[$name];
         $value = (string) call_user_func($config['value'], $message);
+        if ($name === 'text') {
+            $value = $this->cutText($value);
+        }
         if ($value === '') {
             return '';
         }

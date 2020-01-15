@@ -1,5 +1,5 @@
 {
-    "name": "sergeymakinen/yii2-telegram-log",
+    "name": "evgeniy-webmaster/yii2-telegram-log",
     "homepage": "https://github.com/sergeymakinen/yii2-telegram-log",
     "description": "Telegram log target for Yii 2",
     "keywords": ["yii2-telegram-log", "yii2", "yii", "telegram", "log", "logging"],

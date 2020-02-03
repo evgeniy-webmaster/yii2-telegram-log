@@ -52,7 +52,7 @@ class Target extends \yii\log\Target
      * @var array log message template substitutions.
      * [[defaultSubstitutions()]] will be used by default.
      */
-    public $substitutions;
+    public $substitutions = [];
 
     /**
      * @var bool|bool[] whether to send the message silently (`bool` or an array of `bool` per a logger level).
@@ -92,9 +92,7 @@ class Target extends \yii\log\Target
     {
         parent::init();
         $this->httpClient = Instance::ensure($this->httpClient, Client::className());
-        if ($this->substitutions === null) {
-            $this->substitutions = $this->defaultSubstitutions();
-        }
+        $this->substitutions = array_merge($this->defaultSubstitutions(), $this->substitutions);
     }
 
     /**
